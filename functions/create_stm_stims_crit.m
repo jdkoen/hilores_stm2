@@ -1,4 +1,16 @@
 function stims = create_stm_stims_crit(subID,delta,bgColor)
+% This script creates the critical STM stimuli for HiLoResSTM2. 
+%
+% There are in total 108 trials created, 72 trials assigned to set size 2
+% (2 images each) and 36 trials (4 images per set) in set size 4. Half of
+% each set have high resolution change (defined by delta.high) and low
+% resolution change (defined by delta.low) (see create_stims.m). The
+% initial orientation of the image, which is the critical manipulation, is
+% randomly selected from 1-360 FOR EACH SET. The angle differences within a
+% set must be greater than 20 degrees. 
+%
+% At the end, the images are loaded into Matlab matrices, and have the
+% Alpha channel (the transparent voxels) set to bgColor. 
 
 %% Define some usful anonymous functions for angles
 normDeg = @(a,b) mod(a-b,360);
@@ -74,9 +86,6 @@ for i = 1:size(curIMGs,1)
 end
 
 %% Build the stim list
-% Add angles of rotation
-myAngles = num2cell(randomize_matrix(transpose(1:360))); 
-
 % Build the sequence (hard code for this
 fullSeq = randomize_matrix(vertcat( ...
     repmat([2 1],size(ss2.lowRes,1),1), ...

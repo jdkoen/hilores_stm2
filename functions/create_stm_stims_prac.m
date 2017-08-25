@@ -1,5 +1,19 @@
 function stims = create_stm_stims_prac(subID,delta,bgColor)
-
+% This script creates the practice STM stimuli for HiLoResSTM2. 
+%
+% Not that the gandom number generator is seeded, so the practice phase
+% will be identical for each person. 
+%
+% There are in total 4 trials created, 2 trials assigned to set size 2
+% (2 images each) and 2 trials (4 images per set) in set size 4. Half of
+% each set have high resolution change (defined by delta.high) and low
+% resolution change (defined by delta.low) (see create_stims.m). The
+% initial orientation of the image, which is the critical manipulation, is
+% randomly selected from 1-360 FOR EACH SET. The angle differences within a
+% set must be greater than 20 degrees. 
+%
+% At the end, the images are loaded into Matlab matrices, and have the
+% Alpha channel (the transparent voxels) set to bgColor. 
 % Define some usful anonymous functions for angles
 normDeg = @(a,b) mod(a-b,360);
 absDiffDeg = @(c) min(360-c, c);
@@ -27,9 +41,6 @@ ss4.lowRes = {[myIMGs(5:8) repmat({'low' delta.low},4,1) repmat({'left'; 'right'
 ss4.highRes = {[myIMGs(9:12) repmat({'high' delta.high},4,1) repmat({'left'; 'right'},2,1)]};   
 
 %% Build the stim list
-% Add angles of rotation
-myAngles = num2cell(randomize_matrix(transpose(1:360))); 
-
 % Build the sequence (hard code for this
 ssSeq = [2 4 4 2]'; % Set size of 2 and 4
 resSeq = [2 1 2 1]'; % 1 = low res, 2 = high res
