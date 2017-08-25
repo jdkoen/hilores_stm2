@@ -1,45 +1,17 @@
-%% Clear screen and workspace
-clear all;
-clearvars -except subID setID;
+%% STM Task Procedure
+% This script is the experimental procedure for the STM task practice and
+% critical phases. The basic procedure is:
+%
+% 1) 
 
-%% Add Paths
-path(path,genpath(pwd));
+% Just added settings file. Now need to ensure everything works 
+
+%% Run the settings scripts
 cd(fileparts(mfilename('fullpath')));
+path(path,genpath(pwd));
+run hiloresSTM2_settings.m
 
-%% Get Subject ID and phase info
-% Subject ID
-if ~exist('subID','var')
-    subID = input('Enter Subject ID: ','s');
-end
-
-% Material Set ID
-setID = input('Enter ID for stimulus set (e.g., 101, 102, etc.): ');
-setID = sprintf('set%d',setID);
-setDir = fullfile('stim_sets',setID);
-if ~exist(setDir,'dir')
-    error('stimulus set does not exist.');
-end
-
-% Phase ID
-fprintf('\nSelect Phase:\n\t1) Practice\n\t2) Real\n');
-phaseID = input('Enter Phase ID: ');
-if ~ismember(phaseID,[1 2])
-    error('Incorrect phase selection. Must be a value of 1 or 2.')
-end
-
-%% Timing and Size Options
-monID = 1; % ID of monitor to display stims
-textSize = 30; % Size of text on the screen
-stimDuration = 3; % Duration of stimulus in seconds
-stDelay = 1; % Length of delay between study period and first test probe
-testISI = .25; % Length of ISI between test probes
-trialISI = 1.25; % Length of ISI between trials
-imageDim.x = 150; % Size of the image in X
-imageDim.y = imageDim.x; % Size of the image in Y
-baseRect = [0 0 imageDim.x imageDim.y]; % Rectangle for use with psychtoolbox
-xOffset = 100; % Value used to determine the coordinates of 4 quadrants
-yOffset = 100; % Value used to determine the coordinates of 4 quadrants
-bgColor = [128 128 128]; % Define background color
+%% Define when Breaks Happen
 if phaseID == 1
     breaks = [];
 elseif phaseID == 2
@@ -55,26 +27,25 @@ scaleRect = [0 0 432 144];
 
 %% Response options
 KbName('UnifyKeyNames'); % Make sure same across OS
-moveOn = 'space';
-leftResp = 'f';
-rightResp = 'j';
+
+
+%% Response options
+KbName('UnifyKeyNames'); % Make sure same across OS
 
 %% Load stims
 % Make subject directory
 subDir = fullfile('data',subID);
 if ~exist(subDir,'dir')
     mkdir(subDir);
-else
-    error('subID already exists. Copy to a new location before deleting, then restart.')
 end
 
-% Check if stim file exists, and determine best action
+% Copy set files to stim files
 phases = {'_stm_prac.mat' '_stm_crit.mat'};
 setFile = fullfile(setDir,strcat(setID,phases{phaseID}));
 stimFile = fullfile(subDir,strcat(subID,phases{phaseID}));
 copyfile(setFile,stimFile);
 
-% Copy and rename stimFile
+% Load stimFile
 load(stimFile); % Load the file
 
 % Add subject id
@@ -224,7 +195,7 @@ try
         stims(i).studyOnset = stimStart;
         
         % Wait for duration
-        WaitSecs(stimDuration);
+        WaitSecs(duration.stm.study);
         
         % Screen Close
         Screen('Close');
@@ -235,7 +206,7 @@ try
         Screen('Flip',w);
         
         % Wait for ST Delay
-        WaitSecs(stDelay);
+        WaitSecs(duration.stm.st_delay);
         
         %% Test Phase
         for j = 1:stims(i).setSize
@@ -308,7 +279,7 @@ try
             % Draw fixation for a variable amount of time
             DrawFormattedText(w,'+','center','center',[255 255 255]);
             Screen('Flip',w);
-            WaitSecs(testISI);
+            WaitSecs(duration.stm.test_isi);
             
         end
         
@@ -316,7 +287,7 @@ try
         % Draw fixation for a variable amount of time
         DrawFormattedText(w,'+','center','center',[255 255 255]);
         Screen('Flip',w);
-        WaitSecs(trialISI);
+        WaitSecs(duration.stm.trial_isi);
         
         % Screen Close
         Screen('Close');
