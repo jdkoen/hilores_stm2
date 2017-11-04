@@ -20,7 +20,7 @@ Participants should be seated approimately ##cm from the monitor
 
 Participants are shown two Gabor images on the screen (left and right of fixation). The judgment is a Same/Different judgment, where participants are to judge whether the two Gabors have the Same orientation or a different orientation. They are instructed to make this response when the red '+' appears as quickly as possible. 
 
-There are an equal number of same/different trials (80 and 80) in the critical phase. On different trials, the two gabors of a difference in rotation of: 13^o
+There are an equal number of same/different trials (80 and 80) in the critical phase. On different trials, the two gabors of a difference in rotation of: 13<sup>o</sup>
 
 The Gabor display is presented for 300 ms, and after the response is entered there is a 200ms interval before the next trial. 
 
@@ -49,8 +49,8 @@ After a brief delay, memory for the orietnation of the image is tested. Each tes
 
 The angular difference between the lure and same image in each test probe in maniuplated as either high or low (resolution. An equal number of set size 2 and 4 image sets are assigned to the high and low resolution conditions. The rotation of the lure is equally likely to be left or right across all test probes (but not necessarily within age given set; e.g., a set size 4 trial can have 4 lures that were all rotated to the right). Likewise, the side of the same item is equally likely to be on the left or right (across trials, but not necessarily within a set). The rotation (in degrees) for the levels of the resolution factor are:
 
-*Low: 45^o
-*High: 20^o
+* Low: 45<sup>o</sup>
+* High: 20<sup>o</sup>
 
 The experimental factors are:
 1. CB Order (CB1 vs. CB2)
