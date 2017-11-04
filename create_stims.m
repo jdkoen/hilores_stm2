@@ -24,8 +24,10 @@ per.mid = stm.high; % Always same as stm.low
 per.high = gabor.delta; % Always same as gabor.delta
 
 %% Make Stim lists for STM, Gabor, and Perception
-nSets = 1;
-rng(201);
+nSets = 10;
+if strcmpi(version,'p1')
+    rng(201);
+end
 for i = 1:nSets
     
     %% Create setID
@@ -33,7 +35,7 @@ for i = 1:nSets
     setDir = fullfile(saveDir,setID);
     if exist(setDir,'dir')
         warning('Stim set already created. Copying directory first the deleting.');
-        copyDir = fullfile(saveDir,'safety_first',strcat(setID,'_',datestr(datetime('now'),'DD_MM_YYYY')));
+        copyDir = fullfile(saveDir,'safety_first',strcat(setID,'_',datestr(datetime('now'),'dd_mm_yyyy_HH_MM')));
         copyfile(setDir,copyDir);
         rmdir(setDir,'s');
     end
@@ -68,14 +70,14 @@ for i = 1:nSets
     clear saveFile stims;
     
     %% Make a critical perception stimulus set
-    stims = create_perception_stims_crit(subID,per);
+    stims = create_perception_stims_crit(setID,per);
     [stims.sub_id] = deal('');
     saveFile = fullfile(setDir,strcat(setID,'_perception_crit.mat'));
     save(saveFile,'stims');
     clear saveFile stims;
     
     %% Make practice perception stimulus set
-    stims = create_perception_stims_prac(subID,per);
+    stims = create_perception_stims_prac(setID,per);
     [stims.sub_id] = deal('');
     saveFile = fullfile(setDir,strcat(setID,'_perception_prac.mat'));
     save(saveFile,'stims');
