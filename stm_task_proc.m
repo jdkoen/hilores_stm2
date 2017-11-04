@@ -2,9 +2,10 @@
 % This script is the experimental procedure for the STM task practice and
 % critical phases. The basic procedure is:
 %
-% 1) 
-
-% Just added settings file. Now need to ensure everything works 
+% 1) See a set of 2 or 4 images
+% 2) Brief delay
+% 3) 2AFC Test (1 object at a time) - Select the one in the correct
+% location
 
 %% Run the settings scripts
 cd(fileparts(mfilename('fullpath')));
@@ -17,20 +18,6 @@ if phaseID == 1
 elseif phaseID == 2
     breaks = [37 73]; % Trials in which a break happens
 end
-
-%% Load Response Scale Image
-% Load scale image
-scaleIMG = imread('lr_scale.png');
-
-% Set Rect for response scale image
-scaleRect = [0 0 432 144];
-
-%% Response options
-KbName('UnifyKeyNames'); % Make sure same across OS
-
-
-%% Response options
-KbName('UnifyKeyNames'); % Make sure same across OS
 
 %% Load stims
 % Make subject directory
@@ -92,7 +79,7 @@ try
     q22RectStudy = CenterRectOnPointd(baseRect,xCenter,yCenter-yOffset);
     
     % Determine coordinates for resposne scale
-    scaleRect = CenterRectOnPointd(scaleRect,xCenter,yCenter+180);
+    stm.scaleRect = CenterRectOnPointd(stm.scaleRect,xCenter,yCenter+180);
     
     % Do dummy calls to GetSecs, WaitSecs, KbCheck to make sure
     % they are loaded and ready when we need them - without delays
@@ -187,8 +174,7 @@ try
         [timeStamp,stimStart] = Screen('Flip',w);
         if phaseID == 1
             stims(i).studyIMG = Screen('GetImage',w);
-        end
-            
+        end            
         
         % Save Stim Start
         stims(i).timeStamp = timeStamp;
@@ -234,8 +220,8 @@ try
             end
             
             % Add Response Scale            
-            tex(3) = Screen('MakeTexture',w,scaleIMG);
-            thisRect = [thisRect scaleRect'];
+            tex(3) = Screen('MakeTexture',w,stm.scaleIMG);
+            thisRect = [thisRect stm.scaleRect'];
             thisDeg = [thisDeg 0];            
             
             % Draw textures to screen
@@ -276,7 +262,7 @@ try
             stims(i).(strcat('testRT',num2str(j))) = rt;
         
             % Test ISI
-            % Draw fixation for a variable amount of time
+            % Draw fixation 
             DrawFormattedText(w,'+','center','center',[255 255 255]);
             Screen('Flip',w);
             WaitSecs(duration.stm.test_isi);
