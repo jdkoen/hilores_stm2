@@ -1,17 +1,9 @@
-% function stims = create_gabor_task_stims(subID,nReps,delta,rngSeed)
 function stims = create_gabor_task_stims(subID,nReps,delta)
 % This script makes stims for the gabor task. This creates a stim file with
 %
 % subID - ID for participant
 % nReps - number of different trials in each of four different conditions.
 % The number of same (no change) trials 
-
-%% Set random seed if given
-% if ~isempty(rngSeed)
-%     rng(rngSeed);
-% else
-%     rng(935);
-% end
 
 %% Define number of trials
 nTrials.same = nReps*4;
@@ -58,7 +50,7 @@ myStims = myStims(randperm(nTrials.all),:);
 
 %% Make stims structure
 stims = create_stim_structure( ...
-    subID, ...
+    subID, 'prop-val', ...
     'item_type',myStims(:,1), ...
     'diff_side',myStims(:,2), ...
     'delta',repmat({delta},nTrials.all,1), ...

@@ -16,6 +16,9 @@ function stims = create_stm_stims_crit(subID,delta,bgColor)
 normDeg = @(a,b) mod(a-b,360);
 absDiffDeg = @(c) min(360-c, c);
 
+%% Define number of trials per condition
+nTrialsperCond = 72;
+
 %% Get names of images
 % Define direcory
 imgDir = fullfile('images');
@@ -30,8 +33,8 @@ myIMGs = randomize_matrix(myIMGs);
 
 %% Make Stimulus Groups Stims
 % Make set size 2 low resolution
-curSel = 1:72;
-curIMGs = reshape(myIMGs(curSel),72/2,2);
+curSel = 1:nTrialsperCond;
+curIMGs = reshape(myIMGs(curSel),nTrialsperCond/2,2);
 ss2.lowRes = {};
 for i = 1:size(curIMGs,1)
     
@@ -44,8 +47,8 @@ for i = 1:size(curIMGs,1)
 end
 
 % Make set size 2 high resolution
-curSel = curSel + 72;
-curIMGs = reshape(myIMGs(curSel),72/2,2);
+curSel = curSel + nTrialsperCond;
+curIMGs = reshape(myIMGs(curSel),nTrialsperCond/2,2);
 ss2.highRes = {};
 for i = 1:size(curIMGs,1)
     
@@ -58,8 +61,8 @@ for i = 1:size(curIMGs,1)
 end
 
 % Make set size 4 low resolution
-curSel = 1:72;
-curIMGs = reshape(myIMGs(curSel),72/4,4);
+curSel = curSel + nTrialsperCond;
+curIMGs = reshape(myIMGs(curSel),nTrialsperCond/4,4);
 ss4.lowRes = {};
 for i = 1:size(curIMGs,1)
     
@@ -72,8 +75,8 @@ for i = 1:size(curIMGs,1)
 end
 
 % Make set size 4 high resolution
-curSel = curSel + 72;
-curIMGs = reshape(myIMGs(curSel),72/4,4);
+curSel = curSel + nTrialsperCond;
+curIMGs = reshape(myIMGs(curSel),nTrialsperCond/4,4);
 ss4.highRes = {};
 for i = 1:size(curIMGs,1)
     

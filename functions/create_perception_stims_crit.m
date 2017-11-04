@@ -1,9 +1,4 @@
-function stims = create_perception_stims_crit(subID,delta,rngSeed)
-
-%% Set random seed if given
-if ~isempty(rngSeed)
-    rng(rngSeed);
-end
+function stims = create_perception_stims_crit(subID,delta)
 
 %% Get names of images
 % Define direcory
@@ -120,7 +115,7 @@ end
 stimList = randomize_matrix(stimList);
 
 % Make stims structure
-stims = create_stim_structure(subID, ...
+stims = create_stim_structure(subID, 'prop-val', ...
     'image',stimList(:,1), ...
     'item_type',stimList(:,7), ...
     'set_size',stimList(:,4), ...
