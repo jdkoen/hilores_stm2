@@ -1,4 +1,19 @@
-
+%% Perception Task Proc
+% Runs the experimental perceptual task. 
+%
+% In this task participants are shown displays of the same object in 2 or 4
+% locations (left/right or a 4-square grid). On some trials, ALL of the
+% images will have the same orientation. On other trials, one of the images
+% will have a different rotation. Participants are task with reporting if
+% the all images in the set have the SAME rotation, or if one has a
+% DIFFERENT rotation. 
+%
+% A self-paced break is given to participants every 48 trials. 
+%
+% Timing and other features are controlled in the hiloresSTM2_settings.m
+% file.
+%
+% Orientations are controlled by the Screen function of Psychtoolbox. 
 %% Run the settings scripts
 cd(fileparts(mfilename('fullpath')));
 path(path,genpath(pwd));

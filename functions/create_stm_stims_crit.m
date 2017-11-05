@@ -4,10 +4,7 @@ function stims = create_stm_stims_crit(subID,delta,bgColor)
 % There are in total 108 trials created, 72 trials assigned to set size 2
 % (2 images each) and 36 trials (4 images per set) in set size 4. Half of
 % each set have high resolution change (defined by delta.high) and low
-% resolution change (defined by delta.low) (see create_stims.m). The
-% initial orientation of the image, which is the critical manipulation, is
-% randomly selected from 1-360 FOR EACH SET. The angle differences within a
-% set must be greater than 20 degrees. 
+% resolution change (defined by delta.low) (see create_stims.m). 
 %
 % At the end, the images are loaded into Matlab matrices, and have the
 % Alpha channel (the transparent voxels) set to bgColor. 

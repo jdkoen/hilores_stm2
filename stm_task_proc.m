@@ -1,11 +1,22 @@
-%% STM Task Procedure
-% This script is the experimental procedure for the STM task practice and
-% critical phases. The basic procedure is:
+%% STM Task Proc
+% This script runs the experimental protocol for the STM task. 
 %
-% 1) See a set of 2 or 4 images
-% 2) Brief delay
-% 3) 2AFC Test (1 object at a time) - Select the one in the correct
-% location
+% In this task participants are present with sets of 2 or 4 unique images,
+% and each image has a unique rotation. Images in sets of 2 are presented
+% on top and bottom of fixation, whereas images of sets 4 are presented in
+% 4 quadrants centered on the fixation point. The goal is for participants
+% to remember the EXACT orientation of EACH image. After the study set,
+% there is a brief delay and then each image in the set is shown one at a
+% time. The image appears in two locations, one on the left and one on the
+% right of fixation. Participants are to select which of the two images has
+% the EXACT SAME orientation as when it was presented in the study phase. 
+%
+% A self-paced break is given to participants every 36 trials. 
+%
+% Timing and other features are controlled in the hiloresSTM2_settings.m
+% file.
+%
+% Orientations are controlled by the Screen function of Psychtoolbox. 
 
 %% Run the settings scripts
 cd(fileparts(mfilename('fullpath')));
@@ -16,7 +27,7 @@ run hiloresSTM2_settings.m
 if phaseID == 1
     breaks = [];
 elseif phaseID == 2
-    breaks = [37 73]; % Trials in which a break happens
+    breaks = 37:36:108; % Trials in which a break happens
 end
 
 %% Load stims

@@ -1,4 +1,21 @@
 function stims = create_perception_stims_crit(subID,delta)
+% This script creates the critical perception stimuli for HiLoResSTM2. 
+%
+% There are in total 288 trials created. There are two factors: Complexity
+% (set size 2 vs 4) and resolution (low, middle, high). A total of 48
+% images are assigned to each of the 6 cells formed by crossing these two
+% factors. Half of the trials in each set are same trials (all images have
+% the same rotation) whereas the other half are different trials (one image
+% has a different rotationl On different trials, the image that is rotated
+% is equally likely to be in each quadrant and each direction.
+%
+% The initial orientation of the image is randomly selected from 1-360 FOR
+% EACH TRIAL. 
+%
+% Unlike the STM stimulus generation script, the images here are not
+% loaded. Instead, this occurs in the perception_task_proc.m script prior
+% to presenting the trials. Additionally, the angles don't have a minimum
+% difference of 20 degrees as it is same different. 
 
 %% Get names of images
 % Define direcory

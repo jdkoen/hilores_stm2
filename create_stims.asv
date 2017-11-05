@@ -2,16 +2,6 @@
 % This script calls functions to generate stimulus sets for the
 % HiLoRes_STM2 study. 
 %
-% When running this for a new version, update the version variable
-% accordingly. For pilot studies aimed at determining performance, use a
-% 'p' in front of a number (e.g., 'p1', 'p2' for pilots 1 and 2). For the
-% proper experiments, use numbers (but input as a string; e.g., 1 and 2 for
-% experiments 1 and 2).  
-%
-% When making a new version, also add settings to the if statement. This is
-% simply meant to document changes over time (although Git will track them,
-% this makes it more trasparent, although somewhat not as asthetically
-% pleasing)
 
 %% Version #
 version = 'p1';
@@ -22,36 +12,29 @@ saveDir = fullfile(fileparts(mfilename('fullpath')),'stim_sets');
 %% Define Background Color
 bgColor = [128 128 128];
 
-%% Determine settings based on version (this is to keep record of everything
-if strcmpi(version,'p1') % Pilot 1
-    
-    % STM settings
-    stm.low = 45; % Change, in degrees, of different trials for different resolutions
-    stm.high = 20; % Change, in degrees, of different trials for different resolutions
-    
-    % Gabor settings
-    gabor.delta = 13; % Change, in degrees, of different trials for t
-    nReps.practice = 1; % Produces 8 * nReps.practice trials.
-    nReps.critical = 20; % Produces 8 * nReps.crtical trials
-    
-    % Perception settings
-    per.low = stm.low; % Change, in degrees, of different trials for different resolutions. Always same as stm.low
-    per.mid = stm.high; % Always same as stm.low
-    per.high = gabor.delta; % Always same as gabor.delta
-    
-    % Determine number of sets to make
-    nSets = 10;
+%% STM settings
+stm.low = 45; % Change, in degrees, of different trials for different resolutions
+stm.high = 20; % Change, in degrees, of different trials for different resolutions
 
-    % Seed RNG
-    rng(201);
-    
-else
-    
-    error('The specifed version has no settings. Add these first.');
-    
-end
+%% Gabor settings
+gabor.delta = 13; % Change, in degrees, of different trials for t  
+nReps.practice = 1; % Produces 8 * nReps.practice trials.
+nReps.critical = 20; % Produces 8 * nReps.crtical trials
+
+%% Perception settings
+per.low = stm.low; % Change, in degrees, of different trials for different resolutions. Always same as stm.low
+per.mid = stm.high; % Always same as stm.low
+per.high = gabor.delta; % Always same as gabor.delta
 
 %% Make Stim lists for STM, Gabor, and Perception
+nSets = 10;
+if strcmpi(version,'p1')
+    rng(201);
+    nSets = 10;
+elseif strcmpi(version,'p2')
+    rng(101);
+    nSets = 10;
+end
 for i = 1:nSets
     
     %% Create setID

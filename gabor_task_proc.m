@@ -1,7 +1,16 @@
-%% Script for the Gabor Task
-% Uses Psychtoolbox
+%% Gabor Task Proc
+% Runs the experimental task for the percetual (Gabor) control experiment. 
 %
-% 
+% Participants are shown two Gabor images simultaneous. HAlf of the trials
+% the two Gabors are rotated to the same degree, whereas the other half
+% the Gabors have different orientations. 
+%
+% A self-paced break is given to participants every 40 trials. 
+%
+% Timing and other features are controlled in the hiloresSTM2_settings.m
+% file.
+%
+% Orientations are controlled by the Screen function of Psychtoolbox. 
 
 %% Run the settings scripts
 cd(fileparts(mfilename('fullpath')));

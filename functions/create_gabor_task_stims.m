@@ -1,9 +1,11 @@
 function stims = create_gabor_task_stims(subID,nReps,delta)
-% This script makes stims for the gabor task. This creates a stim file with
+% This script makes stims for the gabor task. This script simply determines
+% the orientation and number of trials (same and different) for the Gabor
+% task. The nReps variable determines the number of cycles of 4 same and 4
+% different trials, therefore the total number of trials equals nReps * 8. 
 %
-% subID - ID for participant
-% nReps - number of different trials in each of four different conditions.
-% The number of same (no change) trials 
+% The orientation of the gabor is randomly selected from 1-360 FOR
+% EACH TRIAL. 
 
 %% Define number of trials
 nTrials.same = nReps*4;
@@ -16,8 +18,7 @@ if ~isfield(nTrials,'all')
 end
 
 %% Define possible angles
-% allDegs = linspace(0,360,180);
-allDegs = transpose(0:2:358);
+allDegs = transpose(1:360);
 allDegs = allDegs(randperm(length(allDegs)));
 
 %% Make a matrix of conditions
@@ -30,7 +31,10 @@ myStims = vertcat( ...
     );
 
 %% Add degs to myStims
-myStims = [myStims num2cell(allDegs(1:nTrials.all))];
+for i = 1:size(myStims,1)
+    myAngles = num2cell(randomize_matrix(transpose(1:360)));
+    myStims(i,4) = myAngles(1);
+end
 
 %% Create target and lure degrees
 for i = 1:nTrials.all
