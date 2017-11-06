@@ -68,8 +68,14 @@ try
     % Hide the mouse cursor:
     HideCursor;
     
-    % Initialize screen
+    % Control Sync Testing
     Screen('Preference', 'SkipSyncTests', 1);
+        
+    % Set resolution
+    res = NearestResolution(monID,monRes.w,monRes.h);
+    SetResolution(monID,res);
+    
+    % Initialize screen
     [w,wRect] = Screen('OpenWindow',monID,bgColor);
     
     % Get XY center of screen
@@ -104,7 +110,7 @@ try
     Priority(priorityLevel);  
     
     % Load and Draw instructions
-    instructions = imread(fullfile('instruction_docs','stm','stm_instruction_slide.png'));
+    instructions = imread(fullfile('docs','stm','stm_instruction_slide.png'));
     tex = Screen('MakeTexture',w,instructions);
     Screen('DrawTexture',w,tex);
     Screen('Flip',w);
@@ -193,9 +199,6 @@ try
         
         % Wait for duration
         WaitSecs(duration.stm.study);
-        
-        % Screen Close
-        Screen('Close');
         
         %% ST Delay
         % Draw fixation for ST Delay

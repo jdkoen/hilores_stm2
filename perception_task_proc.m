@@ -67,16 +67,20 @@ try
     % Returns as default the mean gray value of screen:
     gray = GrayIndex(monID); 
     
-    % Turn of Sync
+    % Control Sync Testing
     Screen('Preference', 'SkipSyncTests', 1);
+        
+    % Set resolution
+    res = NearestResolution(monID,monRes.w,monRes.h);
+    SetResolution(monID,res);
     
     % Initialize screen
     [w,wRect] = Screen('OpenWindow',monID,gray);
     
-    % Get XY center of screen
+        % Get XY center of screen
     [xCenter,yCenter] = RectCenter(wRect);
     
-   % Determine coordinates of quads for ss4
+    % Determine coordinates of quads for ss4
     q41Rect = CenterRectOnPointd(baseRect,xCenter-xOffset,yCenter+yOffset);
     q42Rect = CenterRectOnPointd(baseRect,xCenter+xOffset,yCenter+yOffset);
     q43Rect = CenterRectOnPointd(baseRect,xCenter-xOffset,yCenter-yOffset);
@@ -106,7 +110,7 @@ try
     Priority(priorityLevel);  
     
     % Load and Draw instructions
-    instructions = imread(fullfile('instruction_docs','perception','perception_instruction_slide.png'));
+    instructions = imread(fullfile('docs','perception','perception_instruction_slide.png'));
     tex = Screen('MakeTexture',w,instructions);
     Screen('DrawTexture',w,tex);
     Screen('Flip',w);
@@ -152,7 +156,7 @@ try
             
         end
                 
-        % Draw Study Cue
+        % Draw Study Cue (green fixation)
         DrawFormattedText(w,'+','center','center',[0 255 0]);      
         Screen('Flip',w);
         
@@ -185,18 +189,17 @@ try
         stims(i).timeStamp = timeStamp;
         stims(i).stimStart = stimStart;
         
-         % Wait for duration
-        WaitSecs(duration.per.stim);
-        
-        % Screen Close
-        Screen('Close');
-        
-        %% Draw resposne screne (test phase)
-        % Draw fixation and response scale
+        % Load fixation and scale in the buffer
         tex = Screen('MakeTexture',w,per.scaleIMG);
         Screen('DrawTexture',w,tex,[],per.scaleRect');
         DrawFormattedText(w,'+','center','center',[255 0 0]);
-        Screen('Flip',w);
+                
+        % Wait for duration
+        WaitSecs(duration.per.stim);
+               
+        %% Draw response screen (test phase)
+        % Draw fixation and response scale
+        [timeStamp,stimStart] = Screen('Flip',w);
         
         % Wait for resp
         while true

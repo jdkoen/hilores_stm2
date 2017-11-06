@@ -65,8 +65,12 @@ try
     % Returns as default the mean gray value of screen:
     bgColor = GrayIndex(monID); 
     
-     % Turn of Sync
+    % Control Sync Testing
     Screen('Preference', 'SkipSyncTests', 1);
+        
+    % Set resolution
+    res = NearestResolution(monID,monRes.w,monRes.h);
+    SetResolution(monID,res);
     
     % Initialize screen
     [w,wRect] = Screen('OpenWindow',monID,bgColor);
@@ -94,7 +98,7 @@ try
     Priority(priorityLevel);    
     
     % Load and Draw instructions
-    instructions = imread(fullfile('instruction_docs','gabor','gabor_instruction_slide.png'));
+    instructions = imread(fullfile('docs','gabor','gabor_instruction_slide.png'));
     tex = Screen('MakeTexture',w,instructions);
     Screen('DrawTexture',w,tex);
     Screen('Flip',w);
@@ -178,10 +182,7 @@ try
         
         % Wait for duration
         WaitSecs(duration.gabor.stim);
-        
-        % Screen Close
-        Screen('Close');
-        
+                
         %% Draw resposne screne (test phase)
         % Draw fixation with scale
         tex = Screen('MakeTexture',w,gabor.scaleIMG);

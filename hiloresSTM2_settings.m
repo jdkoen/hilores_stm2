@@ -21,8 +21,8 @@ end
 
 % Material Set ID
 if ~exist('setID','var') || ~exist('setDir','var')
-    setID = input('Enter ID for stimulus set (e.g., 101, 102, etc.): ');
-    setID = sprintf('set%d',setID);
+    setID = input('Enter ID for stimulus set (e.g., 101, 102, etc.): ','s');
+    setID = sprintf('set%s',setID);
     setDir = fullfile('stim_sets',setID);
 end
 if ~exist(setDir,'dir')
@@ -38,6 +38,11 @@ if ~ismember(phaseID,[1 2])
 end
 
 %% Common settings and steps for all tasks
+% Monitor resolution
+monRes.w = 1024;
+monRes.h = 768;
+
+% keyboard stuff
 moveOn = 'space';
 KbName('UnifyKeyNames'); % Make sure same across OS
 
@@ -79,7 +84,7 @@ duration.gabor.stim = .3; % Duration of gabor image in seconds
 duration.gabor.iti = .2; % Duration of iti after response in seconds
 
 % Load Gabor image
-gIMG = imread(fullfile('gabors','gabor_08f.png');
+gIMG = imread(fullfile('gabors','gabor_08f.png'));
 gIMG = imresize(gIMG,[gabor.dim.x gabor.dim.y]);
 
 % Load scale image and set rect
