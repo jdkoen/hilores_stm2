@@ -77,7 +77,7 @@ gabor.x.right = -1*gabor.x.left; % X position on right
 gabor.dim.x = 200; % Size of the gabor patch in X
 gabor.dim.y = gabor.dim.x; % Size of the gabor patch in Y
 gabor.xOffset = 150; % Offset of left and right stims
-gabor.baseREct = [0 0 gabor.dim.x gabor.dim.y];
+gabor.baseRect = [0 0 gabor.dim.x gabor.dim.y];
 
 % Duration variables for Gabor task
 duration.gabor.stim = .3; % Duration of gabor image in seconds
